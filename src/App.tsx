@@ -1,25 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import ObjCmp from "./component/objCmp";
+import ArrCmp from "./component/arrCmp";
+import ParentCom from "./component/parentCom";
+import Button from './component/button';
+
 
 function App() {
+  const personName = {
+    name: "jahed",
+    age: 10,
+  };
+
+  const personList = [
+    {
+      name: "foo 1",
+      age: 10,
+    },
+    {
+      name: "foo 2",
+      age: 10,
+    },
+    {
+      name: "foo 3",
+      age: 0,
+ 
+    },
+  ];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ObjCmp name={personName} />
+      <ArrCmp personList={personList} />
+      <ParentCom>ParentCom</ParentCom>
+      <Button handleClick ={(id, e) => {
+        console.log('object', id, e)
+      }}/>
+    </>
   );
 }
 
