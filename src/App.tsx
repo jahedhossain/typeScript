@@ -1,41 +1,42 @@
-import "./App.css";
-import ObjCmp from "./component/objCmp";
-import ArrCmp from "./component/arrCmp";
-import ParentCom from "./component/parentCom";
-import Button from './component/button';
-
+import { useState } from "react";
+import Form from "./component/Form";
+import CustomTable from "./component/table";
+import { fromStateType } from "./type";
 
 function App() {
-  const personName = {
-    name: "jahed",
-    age: 10,
+  const [rowDto, setRowDto] = useState<fromStateType[]>([]);
+  const [fromState, setFromSate] = useState<fromStateType>({
+    userName: "",
+    userEmail: "",
+    age: 0,
+  });
+
+  const addClickEventHandler = () => {
+    const obj = {
+      ...fromState,
+      isSelected: false,
+    };
+    setRowDto([...rowDto, obj]);
+    setFromSate({
+      userName: "",
+      userEmail: "",
+      age: 0,
+    });
   };
 
-  const personList = [
-    {
-      name: "foo 1",
-      age: 10,
-    },
-    {
-      name: "foo 2",
-      age: 10,
-    },
-    {
-      name: "foo 3",
-      age: 0,
- 
-    },
-  ];
+  const removeHandler = (index: number) => {
+    setRowDto(rowDto.filter((item, idx) => idx !== index));
+  };
 
   return (
-    <>
-      <ObjCmp name={personName} />
-      <ArrCmp personList={personList} />
-      <ParentCom>ParentCom</ParentCom>
-      <Button handleClick ={(id, e) => {
-        console.log('object', id, e)
-      }}/>
-    </>
+    <div>
+      <Form
+        fromState={fromState}
+        setFromSate={setFromSate}
+        addClickEventHandler={addClickEventHandler}
+      />
+      <CustomTable rowDto={rowDto} removeHandler={removeHandler} />
+    </div>
   );
 }
 
